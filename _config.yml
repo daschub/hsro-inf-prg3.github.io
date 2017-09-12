@@ -1,6 +1,6 @@
-title: "Webtechnologien (WT)"
+title: "Programmieren 3 (inf-prg3)"
 email: korbinian.riedhammer@fh-rosenheim.de
-description: "Materialien zum FWPM Webtechnologien"
+description: "Materialien zum Pflichtmodul Programmieren 3"
 baseurl: ""
 url: "https://hsro-inf-wt.github.io"
 exclude: ["LICENSE", "Remarks.md"]
