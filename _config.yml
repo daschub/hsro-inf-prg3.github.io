@@ -1,0 +1,17 @@
+title: "Webtechnologien (WT)"
+email: korbinian.riedhammer@fh-rosenheim.de
+description: "Materialien zum FWPM Webtechnologien"
+baseurl: ""
+url: "https://hsro-inf-wt.github.io"
+exclude: ["LICENSE", "Remarks.md"]
+github_username: ["sikoried", "baez90"]
+
+# Build settings
+markdown: kramdown
+permalink: pretty
+
+highlighter: rouge
+kramdown:
+  input: GFM
+  auto_ids: true
+  syntax_highlighter: rouge
