@@ -1,5 +1,52 @@
 # Überarbeiteter Inhalt zum WS 2017
 
+https://web.hypothes.is/
+
+## Zu den Übungen
+Minimale Vorgaben, wenig technische Erklärungen. Stattdessen: Hinführende Links, Suchbegriffe, Tips. --- Vielleicht können wir so die Selbstständigkeit erhöhen?
+
+Teamarbeit: Pairprogramming gewünscht; idealerweise am eigenen Rechner.
+
+## Modulplan
+1. Introduction
+	Handswerkszeug (Git, IntelliJ, Google, SO, gradle, JUnit).
+
+	**Übung:** Git Fingerübung mit fork-clone-branch-push-PR, einzelnem Testcase.
+2. Classes and interfaces.
+	Inner, anonymous, local, static, abstract, final, default, and when to use them.
+	Visibility (public-private-protected-package).
+	Also: `@FunctionalInterface` and Lambda Expressions.
+3. Inheritance revisited.
+	Concrete examples for when (and how) to use abstract base classes.
+4. Generics, part 1.
+	Gerneric classes and methods; data structures and sorting.
+5. Generics, part 2.
+	Generics and inheritance; bounds and wildcards
+6. Annotations and Reflection.
+	With concrete examples of serialization (gson) and network (retrofit)
+7. Design patterns, part 1.
+	MVC/MVVC and intro to Android.
+	Composite, iterator, observer.
+	**Assignments:** Android!
+8. Design patterns, part 2.
+	Singleton, factory, strategy, visitor.
+9. Design patterns, part 3.
+	Proxy, adapter, flyweight.
+10. Threading, part 1.
+	Threads and runnables, consumer-producer-problem.
+11. Threading, part 2.
+	`Future` und `CompletableFuture`, promise chaining.
+12. Functional programming, part 1.
+	- Immutability
+	- Lists and Sets
+	- Basic concepts: filter, map, reduce.
+13. Functional programming, part 2.
+	- `filter`-`map`-`reduce` (`Predicate`, `Function`, `BinaryOperator`)
+	- `Optional`
+	- `collect`, `groupingBy`, etc.
+14. Questions.
+
+
 ## Toolbox
 - IntelliJ
 - Gradle build system
