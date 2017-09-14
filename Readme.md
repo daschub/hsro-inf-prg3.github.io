@@ -30,7 +30,7 @@ Credits: written exam (90') at the end of the semester.
 	
 	With a few examples we dig right into the necessary tools of a (Java) software engineer: Git, IntelliJ, and of course: [Google](https://www.google.com), [SO](https://www.stackoverflow.com) and the [Java docs](http://docs.oracle.com/javase/8/docs/).
 
-	--- ([lecture notes](ln01-intro/), [assignments](/a01-tools/))
+	--- ([slides](s01-intro/), [lecture notes](ln01-intro/), [assignments](/a01-tools/))
 
 - **Classes and Interfaces revisited (Oct 11).**
 	
