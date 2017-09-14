@@ -13,11 +13,11 @@ Teamarbeit: Pairprogramming gewünscht; idealerweise am eigenen Rechner.
 
 	**Übung:** Git Fingerübung mit fork-clone-branch-push-PR, einzelnem Testcase.
 2. Classes and interfaces.
-	Inner, anonymous, local, static, abstract, final, default, and when to use them.
+	Inner, anonymous, local, static, and when to use them.
 	Visibility (public-private-protected-package).
 	Also: `@FunctionalInterface` and Lambda Expressions.
 3. Inheritance revisited.
-	Concrete examples for when (and how) to use abstract base classes.
+	abstract, final, default; Concrete examples for when (and how) to use abstract base classes.
 4. Generics, part 1.
 	Gerneric classes and methods; data structures and sorting.
 5. Generics, part 2.
