@@ -93,4 +93,4 @@ Credits: written exam (90') at the end of the semester.
 	_TBA_.
 
 
-_Subscribe to [https://github.com/hsro-inf-prg3](https://github.com/hsro-inf-prg3) repository to follow updates._
+_Subscribe to [https://github.com/hsro-inf-prg3/hsro-inf-prg3.github.io](https://github.com/hsro-inf-prg3) repository to follow updates._
