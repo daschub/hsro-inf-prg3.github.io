@@ -1,6 +1,6 @@
 ---
 title: Introduction
-permalink: /ln01-intro/
+permalink: /01ln-intro/
 ---
 
 Introduction
