@@ -1,10 +1,10 @@
-Programmieren 3
----------------
-
-_Required class for [CS students](https://www.fh-rosenheim.de/technik/informatik-mathematik/informatik-bachelor/) at the [University of Applied Sciences Rosenheim](https://www.fh-rosenheim.de). --- Pflichtmodul im [Bachelorstudiengang Informatik](https://www.fh-rosenheim.de/technik/informatik-mathematik/informatik-bachelor/) an der [Hochschule Rosenheim](https://www.fh-rosenheim.de)._
+# Programmieren 3
 
 
-# Class Schedule
+_Required class for [CS majors](https://www.fh-rosenheim.de/technik/informatik-mathematik/informatik-bachelor/) at the [University of Applied Sciences Rosenheim](https://www.fh-rosenheim.de). --- Pflichtmodul im [Bachelorstudiengang Informatik](https://www.fh-rosenheim.de/technik/informatik-mathematik/informatik-bachelor/) an der [Hochschule Rosenheim](https://www.fh-rosenheim.de)._
+
+
+## Class Schedule
 
 **Lecture**: Wednesdays at 8a
 
@@ -13,7 +13,7 @@ _Required class for [CS students](https://www.fh-rosenheim.de/technik/informatik
 **Comunication** via [Mattermost](https://inf-mattermost.fh-rosenheim.de/inf-prg3/channels/town-square) ([invite](https://inf-mattermost.fh-rosenheim.de/signup_user_complete/?id=c8n9474tq3dm8mjn7cse1xsesa)).
 
 
-# Class and Credits (_Leistungsnachweis_)
+## Class and Credits (_Leistungsnachweis_)
 Lectures: Not your classic lecture--- we'll work together on concrete problems and their solution. The class will be taught in German, the materials are mostly in English.
 
 Tutorials and assignments: Pairprogramming preferred, [_BYOD_](https://en.wikipedia.org/wiki/Bring_your_own_device) strongly recommended!
@@ -21,7 +21,7 @@ Tutorials and assignments: Pairprogramming preferred, [_BYOD_](https://en.wikipe
 Credits: written exam (90') at the end of the semester.
 
 
-# Recommended Textbooks
+## Recommended Textbooks
 - Bloch: [Effective Java](https://www.amazon.de/Effective-Java-2nd-Programming-Language/dp/0321356683/)
 - Oaks: [Java Performance](https://www.amazon.de/Java-Performance-The-Definitive-Guide/dp/1449358454/)
 - Gamma _et al._: [Design Patterns](https://www.amazon.de/Patterns-Elements-Reusable-Object-Oriented-Software/dp/0201633612/)
@@ -29,8 +29,8 @@ Credits: written exam (90') at the end of the semester.
 - Siedersleben: [Moderne Softwarearchitektur](https://www.amazon.de/Moderne-Software-Architektur-Umsichtig-planen-robust/dp/3898642925/)
 
 
-# Syllabus
-- **Introduction (Oct 4, [slides](01s-intro/), [lecture notes](01ln-intro/), [assignments](/01a-tools/))**
+## Syllabus
+- **Introduction (Oct 4, [slides](01s-intro/), [lecture notes](01ln-intro/), [assignments](https://github.com/hsro-inf-prg3/01a-tools/))**
 	
 	With a few examples we dig right into the necessary tools of a (Java) software engineer: Git, IntelliJ, and of course: [Google](https://www.google.com), [SO](https://www.stackoverflow.com) and the [Java docs](http://docs.oracle.com/javase/8/docs/).
 

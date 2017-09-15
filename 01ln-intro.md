@@ -6,5 +6,4 @@ permalink: /01ln-intro/
 Introduction
 ------------
 
-
-# Meh.
+_Work in progress..._
