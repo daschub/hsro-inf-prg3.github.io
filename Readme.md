@@ -12,6 +12,8 @@ _Required class for [CS majors](https://www.fh-rosenheim.de/technik/informatik-m
 
 **Comunication** via [Mattermost](https://inf-mattermost.fh-rosenheim.de/inf-prg3/channels/town-square) ([invite](https://inf-mattermost.fh-rosenheim.de/signup_user_complete/?id=c8n9474tq3dm8mjn7cse1xsesa)).
 
+_Note: Materials will be in English, the lectures/tutorials will be taught in German; the mid-term written exam will be bilingual (use the language of your choice)._
+
 
 ## Class and Credits (_Leistungsnachweis_)
 Lectures: Not your classic lecture--- we'll work together on concrete problems and their solution. The class will be taught in German, the materials are mostly in English.
