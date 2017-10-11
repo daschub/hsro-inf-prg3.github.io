@@ -363,7 +363,8 @@ k1.filter(new Filter() {
 });
 ```
 
-of shorter, with lambda expression:
+As you can see, there is a lot of "boilerplate" code beside the actual `test()` function.
+You can write this more compact with a lambda expression:
 
 ```java
 k1.filter(o -> o != null);  // single statement
@@ -372,6 +373,7 @@ k1.filter(o -> {  // multiple statements, conclude with return
 })
 ```
 
+In this casel, the lambda expression `x -> ...` refers to a functional Interface, with the non-default function having exactly one argument.
 If you have multiple arguments, the lambda expression becomes for example `(a1, h2) -> ...` (note that the type is inferred automatically).
 
 The third alternative is to use a method _reference_:
@@ -384,6 +386,8 @@ interface Filter {
 		return o != null;
 	}
 }
+```
+```java
 Filter fi = new Filter() {
 	public boolean  test(Object o) {
 		return o != null;
@@ -396,17 +400,40 @@ k1.filter(fi::test);
 k1.filter(Filter::testForNull);
 ```
 
-You can specify the following kinds of reference:
+Method references (`::`) can be specified in the following ways:
 
 | Kind	| Example
 |-------|--------
-|Reference to a static method	| ContainingClass::staticMethodName
-|Reference to an instance method of a particular object	| containingObject::instanceMethodName
-| Reference to an instance method of an arbitrary object of a particular type	| ContainingType::methodName
-| Reference to a constructor	| ClassName::new
+|Reference to a static method	| `ContainingClass::staticMethodName`
+|Reference to an instance method of a particular object	| `containingObject::instanceMethodName`
+| Reference to an instance method of an arbitrary object of a particular type	| `ContainingType::methodName`
+| Reference to a constructor	| `ClassName::new`
 
+and their usage can be confusing.
+Consider this example:
+
+```java
+@FunctionalInterface
+interface BiFunction {
+	Object apply(Object a, Object b);
+}
+```
+```java
+class SomeObject implements BiFunction {
+	public Object apply(Object o) {
+		System.out.println(o);
+		return null;
+	}
+	public static void main(String[] args) {
+		SomeObject so = new SomeObject();
+		BiFunction bf = so::apply;
+	}
+}
+```
+
+We'll review method references in the last two chapters of this class, when we're discussing Java's functional programming capabilities.
 
 ## Further Reading
 
-- [method references](https://docs.oracle.com/javase/tutorial/java/javaOO/methodreferences.html)
 - [When to Use Nested Classe etc.](https://docs.oracle.com/javase/tutorial/java/javaOO/whentouse.html)
+- [method references](https://docs.oracle.com/javase/tutorial/java/javaOO/methodreferences.html)
