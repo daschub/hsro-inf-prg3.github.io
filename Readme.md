@@ -41,7 +41,7 @@ Credits: written exam (90') at the end of the semester.
 	We look at different types of classes (inner, anonymous, local, static), when to use them, and which visibility for which purpose.
 	Also: `@FunctionalInterface` and lambda expressions.
 
-- **Inheritance revisited (Oct 18)**
+- **Inheritance revisited (Oct 18, [assignments](https://github.com/hsro-inf-prg3/03-inheritance))**
 	
 	We talk about abstract and final classes, (pure) virtual functions and defaults.
 	Also, when (and how) to use abstract base classes.
