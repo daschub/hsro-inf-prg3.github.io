@@ -437,3 +437,5 @@ We'll review method references in the last two chapters of this class, when we'r
 
 - [When to Use Nested Classe etc.](https://docs.oracle.com/javase/tutorial/java/javaOO/whentouse.html)
 - [method references](https://docs.oracle.com/javase/tutorial/java/javaOO/methodreferences.html)
+
+<p style="text-align: right">&#8718;</p>

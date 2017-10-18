@@ -32,19 +32,19 @@ Credits: written exam (90') at the end of the semester.
 
 
 ## Syllabus
-- **Introduction (Oct 4, [slides](01s-intro/), [assignments](https://github.com/hsro-inf-prg3/01-tools/))**
+- **Introduction (Oct 4, [slides](/01s-intro/), [assignments](https://github.com/hsro-inf-prg3/01-tools/))**
 	
 	With a few examples we dig right into the necessary tools of a (Java) software engineer: Git, IntelliJ, and of course: [Google](https://www.google.com), [SO](https://www.stackoverflow.com) and the [Java docs](http://docs.oracle.com/javase/8/docs/).
 
-- **Classes and Interfaces revisited (Oct 11, [slides](02s-classes-interfaces/), [lecture notes](02ln-classes-interfaces/), [assignments](https://github.com/hsro-inf-prg3/02-classes-interfaces/))**
+- **Classes and Interfaces revisited (Oct 11, [slides](/02s-classes-interfaces/), [lecture notes](/02ln-classes-interfaces/), [assignments](https://github.com/hsro-inf-prg3/02-classes-interfaces/))**
 	
 	We look at different types of classes (inner, anonymous, local, static), when to use them, and which visibility for which purpose.
 	Also: `@FunctionalInterface` and lambda expressions.
 
-- **Inheritance revisited (Oct 18, [assignments](https://github.com/hsro-inf-prg3/03-inheritance))**
+- **Inheritance revisited (Oct 18, [slides](/03s-inheritance/), [lecture notes](/03ln-inheritance/), [assignments](https://github.com/hsro-inf-prg3/03-inheritance))**
 	
 	We talk about abstract and final classes, (pure) virtual functions and defaults.
-	Also, when (and how) to use abstract base classes.
+	Also, when (and how) to use abstract base classes, and how the Decorator pattern can be used to add functionality to existing classes.
 
 - **Generics, pt. 1 (Oct 25)**
 	

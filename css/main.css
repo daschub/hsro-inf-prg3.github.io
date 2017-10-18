@@ -73,6 +73,10 @@ a:visited { color: #205caa; }
   border-top: 1px solid #999;
 }
 
+img {
+  max-width: 100%;
+}
+
 /* Custom CSS for pages */
 .figcenter {
   text-align: center;
