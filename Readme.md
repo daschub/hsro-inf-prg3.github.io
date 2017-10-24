@@ -46,13 +46,13 @@ Credits: written exam (90') at the end of the semester.
 	We talk about abstract and final classes, (pure) virtual functions and defaults.
 	Also, when (and how) to use abstract base classes, and how the Decorator pattern can be used to add functionality to existing classes.
 
-- **Generics, pt. 1 (Oct 25)**
+- **Generics, pt. 1 (Oct 25, [slides](/04s-generics-1/), [lecture notes](/04ln-generics-1/), [assignments](https://github.com/hsro-inf-prg3/04-generics))**
 	
 	We dig into the details of how generics work in Java, and how to apply them to data structures and algorithms.
 
 > No class and assignments on Nov 1 (All Saints/Allerheiligen).
 
-- **Generics, pt. 2(Nov 8)**
+- **Generics, pt. 2(Nov 8, [slides](/05s-generics-2/), [lecture notes](/05ln-generics-2/))**
 	
 	Generics and inheritance need special attention, and will lead us to bounds and wildcards.
 
