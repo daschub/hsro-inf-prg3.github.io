@@ -52,7 +52,7 @@ Credits: written exam (90') at the end of the semester.
 
 > No class and assignments on Nov 1 (All Saints/Allerheiligen).
 
-- **Generics, pt. 2(Nov 8, [slides](/05s-generics-2/), [lecture notes](/05ln-generics-2/))**
+- **Generics, pt. 2(Nov 8, [slides](/05s-generics-2/), [lecture notes](/05ln-generics-2/), [assignments](https://github.com/hsro-inf-prg3/05-generic-bounds))**
 	
 	Generics and inheritance need special attention, and will lead us to bounds and wildcards.
 
