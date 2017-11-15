@@ -28,7 +28,7 @@ System.out.println(klass3.toString());
 System.out.println(klass4.toString());
 
 klass1.getName();  // java.lang.String
-klass1.getCanonicalName();  // String
+klass1.getSimpleName();  // String
 ```
 
 Note that for `Class<T>` you can use the class name if known at compile time (or use an unchecked cast at runtime), or use the `?` (wildcard) and appropriate bounds for _any_ type.
