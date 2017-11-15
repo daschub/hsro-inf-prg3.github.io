@@ -56,9 +56,9 @@ Credits: written exam (90') at the end of the semester.
 	
 	Generics and inheritance need special attention, and will lead us to bounds and wildcards.
 
-- **Annotations and Reflection (Nov 15)**
+- **Reflection and Annotations (Nov 15, [slides](/06s-reflection-annotations/), [lecture notes](/06ln-reflection-annotations/), [assignments](https://github.com/hsro-inf-prg3/06-annotations-reflection))**
 	
-	Learn how annotations and reflection work using examples of serialization (with [gson](https://github.com/google/gson)) and networking ([retrofit](https://github.com/square/retrofit)).
+	Learn how reflection works in Java, and how they enable annotations by using examples of testing ([JUnit5](http://junit.org/junit5/)), serialization ([gson](https://github.com/google/gson)) and networking ([retrofit](https://github.com/square/retrofit)).
 
 - **Design patterns, pt. 1 (Nov 22)**
 
