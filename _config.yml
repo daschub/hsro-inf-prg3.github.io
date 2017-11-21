@@ -3,7 +3,7 @@ email: korbinian.riedhammer@fh-rosenheim.de
 description: "Materialien zum Pflichtmodul Programmieren 3"
 baseurl: ""
 url: "https://hsro-inf-wt.github.io"
-exclude: ["LICENSE", "Remarks.md"]
+exclude: ["LICENSE", "Remarks.md", "examples"]
 github_username: ["sikoried", "baez90"]
 
 # Build settings
