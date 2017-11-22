@@ -150,50 +150,39 @@ This is however terribly inefficient, since for each `get()` call, we need find 
 Iteration over the elements is such a frequent use case, so isn't there a better way?
 
 
-## Digression: varargs
+## Digression: Adding Muliple Values
 Let's take a short digression.
-To write a constructor for our `SimpleList` that initializes the list with certain values, we could write a constructor similar to this:
+Sometimes you want to add more than one value at the same time:
 
 ```java
-public SimpleList(T[] values) {
+public void addAll(T[] values) {
 	for (T v : values)
 		add(v);
 }
 ```
 
-...which can be used like so: `new SimpleList(new Integer[] {1, 2, 3})`.
-This is a little tedious, so for Java 6 and up, you can use so called [_varargs_](https://docs.oracle.com/javase/8/docs/technotes/guides/language/varargs.html).
-It is a special syntax for variable number of arguments that behaves just like arrays.
-
-```java
-@SafeVarargs
-public SimpleList(T... values) {
-	for (T v : values)
-		add(v);
-}
-```
-
-...which can be used like so: `new SimpleList(1, 2, 3)`, thus saving some tying.
-
-
-A major drawback of both variants is, that the repeated call to `add()` is highly inefficient: to add a new element, you must always go from the root to the end, before linking the new element.
+A major drawback of this method is that the repeated call to `add()` is highly inefficient: to add a new element, you must always go from the root to the end, before linking the new element.
 This results in a constructor complexity of \\(O(n^2)\\).
 
 Clearly, if we have a number of Elements to be added, we can remember where the last element was, reducing the complexity to \\(O(n)\\).
 
 ```java
-@SafeVarargs
-public SimpleList(T... values) {
-	Element prev = null;
+public void addAll(T[] values) {
+	// start at the beginning, find the end
+	Element it = root;
+	while (it != null && it.next == null)
+		it = it.next;
+	
+	// for each new value, remember where we added it
 	for (T v : values) {
-		if (prev == null) {
-			root = prev = new Element(v);
+		if (it == null) {
+			root = it = new Element(v);
 		} else {
-			prev.next = new Element(v);
-			prev = prev.next;
+			it.next = new Element(v);
+			it = it.next;
 		}
 	}
-	size = values.length;
+	size = size + values.length;
 }
 ```
 
@@ -205,7 +194,8 @@ Thus, using internal knowledge on how the data structure is shaped, we could ins
 Let's come back to our efficiency problem, with repeated calls to `get()` leading to an \\(O(n^2)\\) complexity.
 
 ```java
-SimpleList<Integer> list = SimpleList<>(3, 1, 3, 3, 7);
+SimpleList<Integer> list = SimpleList<>();
+list.addAll(new int[] {3, 1, 3, 3, 7});
 for (int i = 0; i < list.size(); i++) {
 	System.out.println(list.get(i));
 }
@@ -216,18 +206,16 @@ Conceptually, iterating over a data structure can very well be described as a _w
 
 ```java
 int i = 0;  // start at the beginning
-while (i < list.size()) {  // while we're not at the end
-	System.out.println(list.get(i));  // get the next element
-	i++;                              // advance
-}
+while (i < list.size()) // while we're not at the end
+	System.out.println(list.get(i++));  // get the next element and advance
 ```
 
 And in fact, these are the basic operations of the [_iterator_](https://docs.oracle.com/javase/8/docs/api/java/util/Iterator.html) `java.util.Iterator<T>`
 
 ```java
 interface Iterator<T> {
-	boolean hasNext();
-	T next();
+	boolean hasNext();  // is there one more element?
+	T next();           // give me that, and advance!
 }
 ```
 
@@ -235,10 +223,8 @@ Thus we can write the iteration as
 
 ```java
 Iterator<Integer> it = list.???;  // what about this?
-
-while (it.hasNext()) {
-	Integer v = it.next();
-}
+while (it.hasNext())
+	System.out.println(it.next());
 ```
 
 So where do we get the iterator from?
@@ -254,19 +240,23 @@ while (i-- > 0)
 return it.value;
 ```
 
-The iterator uses the same idea: store the current position in an attribute, and advance when necessary.
+The iterator uses the same idea: store the current position in an attribute (`it`), and advance when necessary (`it = it.next`).
 
 ```java
 public Iterator<T> iterator() {
+	// make a new anonymous inner class
 	return new Iterator<T>() {
 		Element it = root;  // we start at the root
+		
 		@Override
 		public boolean hasNext() {
-			return it == null;
+			// do we point to a valid element?
+			return it != null;
 		}
 
 		@Override
 		public T next() {
+			// remember current value, advance and return
 			T value = it.value;
 			it = it.next;
 			return value;
@@ -286,7 +276,14 @@ interface Iterable<T> {
 Note that it is in the language specification package `java.lang`, since it enables the use of `Iterable`s in _for-each_ statements (which is a language feature).
 
 ```java
-BasicList<Integer> list = new BasicList<>(3, 1, 3, 3, 7);
+class SimpleList<T> implements BasicList<T>, Iterable<T> {
+	// ...
+	public Iterator<T> iterator() { /* ... */ }
+}
+```
+```java
+SimpleList<Integer> list = new SimpleList<>();
+list.addAll(3, 1, 3, 3, 7);
 for (Integer i : list) {
 	System.out.println(i);
 }
@@ -297,7 +294,7 @@ for (Integer i : list) {
 
 ![iterator pattern](/assets/dp-iterator.svg)
 
-Typically, the `ConcreteIterator<T>` is implemented as an inner, local or anonymous class within the `ConcreteAggregate<T>`, since intimate knowledge of the data structure is required.
+Typically, the `ConcreteIterator<T>` is implemented as an inner, local or anonymous class within the `ConcreteAggregate<T>`, since intimate knowledge (and access!) of the data structure is required.
 
 The iterator is a _behavioral_ pattern.
 
