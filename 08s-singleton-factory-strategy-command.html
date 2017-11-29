@@ -70,6 +70,33 @@ Composite pattern:
 
 # Factory
 
+```java
+interface Component {
+	String toString();
+}
+interface Composite extends Component {
+	void add(Component c);
+}
+interface Leaf extends Component {
+}
+```
+
+```java
+JsonComposite root = new JsonComposite("root");
+root.add(new JsonLeaf("key", "value"));
+
+Composite nested = new JsonComposite("nested");
+nested.add(new JsonLeaf("key", "value"));
+root.add(nested);
+
+System.out.println(root);
+// "root": {"key": "value", "nested": {"key": "value"}}
+```
+
+---
+
+# Factory
+
 Structure to enforce the use of abstract factories and products, by hiding the actual instantiation of the concrete factory and products.
 
 ![dp-factory](/assets/dp-abstract-factory.svg)
