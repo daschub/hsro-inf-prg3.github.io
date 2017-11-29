@@ -138,6 +138,7 @@ For advanced developers: Favor [_dependency injection_](https://en.wikipedia.org
 - Device handles (there is only 1 physical device, e.g. `System.out`)
 - Service objects (eg. API wrappers, ...)
 
+---
 
 # Factory
 
@@ -280,6 +281,8 @@ System.out.println(root);
 
 As you can see, you only need to replace the factory that produces the concrete clases; the construction logic remains the same.
 
+You can find the above example code at <https://github.com/hsro-inf-prg3/hsro-inf-prg3.github.io/tree/master/examples/src/main/java/designpattern/factory>.
+
 
 ## Structure and Participants
 
@@ -314,10 +317,65 @@ Typically objects that are either complicated to instantiate or which should not
 - Logging instances
 - API wrappers
 
+---
 
 # Strategy
 
-## Structure and Participants
+# A Basic Example
+
+The _strategy_ pattern helps to abstract a certain method from its actual implementation.
+It is so fundamental to Java that it has the syntax keyword `interface` to separate _declarations_ from _implementations_.
+
+Let's consider a simple example, where we want to sort a list in ascending or descending order, using different `Comparator<T>`s.
+
+```java
+List<Integer> list = new LinkedList<>();
+list.add(4);
+list.add(7);
+list.add(1);
+list.add(1);
+
+Collections.sort(list, new Comparator<Integer>() {
+	@Override
+	public compare(Integer a, Integer b) {
+		return a.compareTo(b);
+	}
+});
+
+Collections.sort(list, new Comparator<Integer>() {
+	@Override
+	public compare(Integer a, Integer b) {
+		return b.compareTo(a);  // note the flipped order!
+	}
+});
+```
+
+# A More Sophisticated Example
+
+Check out [JavaKara](https://www.swisseduc.ch/informatik/karatojava/javakara/), a little robot bug that can be moved through a tiny world.
+You can control it with very basic actions:
+
+```java
+kara.move();        // one step forward
+kara.turnLeft();    // you guessed it...
+kara.turnRight();
+kara.treeFront();   // tree ahead?
+kara.putLeaf();     // take a clover leaf
+kara.removeLeav();  // remove a clover leaf
+```
+
+![kara-explore](/assets/kara-explore.png)
+
+To have kara explore the whole room (starting from the center), you could think of two _strategies_:
+- walk concentric growing circles until the room is fully explored
+- walk to the top-right corner; then sweep left-to-right, top-to-bottom.
+
+The sample code can be found in <https://github.com/hsro-inf-prg3/hsro-inf-prg3.github.io/tree/master/examples/src/main/java/designpattern/strategy>.
+Check out the `StrategyExampleBad`, which has two explicit plans, `planA()` and `planB()`.
+Contrast it with the implementation in `StrategyExample`: here, the logic of the strategy is moved to a separate class which is instantiated as needed.
+
+
+## Structure
 
 ![dp-strategy](/assets/dp-strategy.svg)
 
@@ -349,8 +407,140 @@ Refactor to the factory pattern by isolating them and use them via a common inte
 - Media encoders (mp3, mp4, aac, etc.)
 - Serializers ("save as..." feature)
 
+---
 
 # Command
+
+Let's stick with kara for a moment.
+We could write a program that takes input from the command line and uses that to direct kara around.
+
+![kara-explore-2](/assets/kara-explore-2.png)
+
+```java
+public class InteractiveKara extends JavaKaraProgram {
+	public static void main(String[] args) throws IOException {
+		InteractiveKara program = new InteractiveKara();
+		program.run("src/main/resources/world1.world");
+
+		int c;
+		while ((c = System.in.read()) != -1) {
+			if (c == 10)
+				continue;  // enter
+			else if ((char) c == 'e')
+				break;
+
+			try {
+				switch ((char) c) {
+					case 'm': program.kara.move(); break;
+					case 'l': program.kara.turnLeft(); break;
+					case 'r': program.kara.turnRight(); break;
+					case 't': program.kara.removeLeaf(); break;
+					case 'd': program.kara.putLeaf(); break;
+				}
+			} catch (RuntimeException e) {
+				System.out.println(e);
+				System.exit(0);
+			}
+		}
+
+		System.exit(0);
+	}
+}
+```
+
+Note the `catch` for `RuntimeException`: this happens if you have kara walk into a tree, or try to pick up a leaf where there is none.
+
+So here is the problem: The above program works nicely until we hit a tree or otherwise raise an exception, at which point the while application is terminated.
+
+Can you think of a mechanism that instead allows us to back-track where we came from?
+Or in other words: if we screw up, can we undo the previous moves?
+
+We can, if we take care of the following aspects:
+- for every action, we need to know the reverse
+- we need to keep track of every successful action
+- (optionally) we can manually "forget" our history, if we're at a good place.
+
+These are covered by the command pattern.
+Instead of directly calling the actions on kara, we make _objects_ that will do the actual work:
+
+```java
+interface Command {
+	void execute();
+	default void undo() {
+		throw new UnsupportedOperationException();
+	}
+}
+```
+
+Now, if we keep a journal (stack) of commands, it is easy to go back: just remove them one-by-one and call `.undo()`.
+
+Here is an example for a command to move forward:
+
+```java
+class MoveCommand implements Command {
+	private JavaKaraProgram.JavaKara kara;
+	public MoveCommand(JavaKaraProgram.JavaKara kara) {
+		this.kara = kara;
+	}
+
+	@Override
+	public void execute() {
+		kara.move();
+	}
+
+	@Override
+	public void undo() {
+		// turn back, move
+		new TurnCommand(kara, 2).execute();
+		kara.move();
+
+		// turn to original direction
+		new TurnCommand(kara, 2).execute();
+	}
+}
+```
+
+Let's alter the main program to use the command pattern:
+
+```java
+public class CommandExample extends JavaKaraProgram {
+	public static void main(String[] args) throws IOException {
+		CommandExample program = new CommandExample();
+		program.run("src/main/resources/world1.world");
+
+		// this will keep track of the successful commands
+		Stack<Command> history = new Stack<>();
+
+		int c;
+		while ((c = System.in.read()) != -1) {
+			// ...
+
+			Command cmd = new IdleCommand();
+			switch ((char) c) {
+				case 'm': cmd = new MoveCommand(program.kara); break;
+				case 'l': cmd = new TurnCommand(program.kara, -1); break;
+				// ...
+			}
+
+			try {
+				cmd.execute();
+				history.push(cmd);
+			} catch (RuntimeException e) {
+				System.out.println(e);
+				System.out.println("Tracking back to last saved state");
+				// go back to beginning, restart
+				while (history.size() > 0)
+					history.pop().undo();
+			}
+		}
+
+		System.exit(0);
+	}
+}
+```
+
+The complete example code can be found at <https://github.com/hsro-inf-prg3/hsro-inf-prg3.github.io/tree/master/examples/src/main/java/designpattern/command>.
+
 
 ## Structure and Participants
 
