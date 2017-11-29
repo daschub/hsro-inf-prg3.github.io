@@ -1,4 +1,4 @@
-package decorator;
+package designpattern.decorator;
 
 import org.junit.jupiter.api.Test;
 

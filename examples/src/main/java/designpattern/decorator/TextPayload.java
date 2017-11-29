@@ -1,4 +1,4 @@
-package decorator;
+package designpattern.decorator;
 
 public class TextPayload extends Payload {
 	private String text;

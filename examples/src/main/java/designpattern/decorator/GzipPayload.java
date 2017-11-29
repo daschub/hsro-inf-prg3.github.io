@@ -1,4 +1,4 @@
-package decorator;
+package designpattern.decorator;
 
 public class GzipPayload extends PayloadDecorator {
 	public GzipPayload(Payload deflated) {

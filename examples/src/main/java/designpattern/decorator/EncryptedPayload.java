@@ -1,4 +1,4 @@
-package decorator;
+package designpattern.decorator;
 
 public class EncryptedPayload extends PayloadDecorator {
 	public EncryptedPayload(Payload encrypted) {

@@ -1,6 +1,4 @@
-package designpattern;
-
-import com.sun.org.glassfish.external.probe.provider.annotations.Probe;
+package designpattern.iterator;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;

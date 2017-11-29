@@ -1,4 +1,4 @@
-package decorator;
+package designpattern.decorator;
 
 public abstract class PayloadDecorator extends Payload {
 	private Payload source;
