@@ -4,14 +4,16 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-class NaiveGalleryItem {
+class NaiveImg {
 	final Image image;
 	final String caption;
 
-	NaiveGalleryItem(String caption, String path) throws IOException, URISyntaxException {
+	NaiveImg(String caption, String path) throws IOException, URISyntaxException {
 		this.caption = caption;
 
 		// get resource file uri
@@ -20,5 +22,13 @@ class NaiveGalleryItem {
 
 		// load image
 		this.image = ImageIO.read(file);
+	}
+
+	void describe(PrintStream ps) {
+		ps.println(String.format("%s: %d x %d",
+				caption,
+				image.getHeight(null),
+				image.getWidth(null)
+		));
 	}
 }

@@ -8,19 +8,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 class FlyweightFactory {
-	Map<String, Flyweight> flyweights = new HashMap<>();
+	private Map<String, Flyweight> flyweights = new HashMap<>();
 
 	Flyweight getFlyweight(String path) throws URISyntaxException, IOException {
 		if (flyweights.containsKey(path))
 			return flyweights.get(path);
 
-		// get resource file uri
-		File file = new File(getClass().getClassLoader()
-				.getResource(path).toURI());
-
-		// load image
-		Flyweight fw = new Flyweight(ImageIO.read(file));
+		// allocate new flyweight
+		Flyweight fw = new Flyweight(path);
 		flyweights.put(path, fw);
+
 		return fw;
 	}
 }

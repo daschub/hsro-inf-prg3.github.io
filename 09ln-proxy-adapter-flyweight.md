@@ -206,8 +206,168 @@ _Object_ adapter:
 
 # Flyweight
 
-Consider 
+Consider the following example: you want to build a "text based" web browser (e.g. for visually impaired).
+Here is a simple page that contains a list of a few images.
 
+```html
+<ul>
+	<li><img alt="Exhibit 1" src="picasso.png"></li>
+	<li><img alt="Exhibit 2" src="vangogh.png"></li>
+	<li><img alt="Exhibit 3" src="munch.png"></li>
+	<li><img alt="Exhibit 4" src="monet.png"></li>
+</ul>
+```
+
+In Java, we could use an `Img` class to represent each image:
+
+```java
+class Img {
+	final Image image;
+	final String caption;
+
+	Img(String caption, String path) throws IOException, URISyntaxException {
+		this.caption = caption;
+
+		// get resource file uri
+		File file = new File(getClass().getClassLoader()
+				.getResource(path).toURI());
+
+		// load image
+		this.image = ImageIO.read(file);
+	}
+
+	void describe(PrintStream ps) {
+		ps.println(String.format("%s: %d x %d",
+				caption,
+				image.getHeight(null),
+				image.getWidth(null)
+		));
+	}
+}
+```
+
+You could now instantiate the list with a few image tags and print them to make it a text based browser. 
+
+```java
+List<Img> items = new LinkedList<>();
+
+// allocate items
+items.add(new Img("Exhibit 1", "picasso.png"));
+items.add(new Img("Exhibit 2", "vangogh.png"));
+items.add(new Img("Exhibit 3", "munch.png"));
+items.add(new Img("Exhibit 4", "monet.png"));
+
+// print them out
+for (Img e : items)
+	e.describe(System.out);
+```
+
+This works alright as long as every image is different, but is fairly inefficient if images are displayed multiple times:
+
+```html
+<ul>
+	<li><img alt="Exhibit 1" src="picasso.png"></li>
+	<li><img alt="Also Picasso" src="picasso.png"></li>
+	<li><img alt="Picasso, too" src="picasso.png"></li>
+	<li><img alt="Oh look, Picasso" src="picasso.png"></li>
+</ul>
+```
+
+> This may sound hypothetical, but think of recurring images in an endless scroll page such as the "Like" button on Facebook.
+
+Clearly, re-loading the `picasso.png` is not only inefficient in terms of load times and network traffic, it also has bad effect on memory.
+
+This is where the _Flyweight_ pattern comes into play.
+The general idea is to separate **intrinsic** (static, unchanged; here: `picasso.png`) information from **extrinsic** (variable; here: `alt` caption) information.
+
+The intrinsic share becomes the _flyweight_, and it will be shared among all different `img` that have the same `src`.
+
+```java
+class Flyweight {
+	// intrinsic state
+	private final Image image;
+
+	Flyweight(String path) throws URISyntaxException, IOException {
+		// get resource file uri
+		File file = new File(getClass().getClassLoader()
+				.getResource(path).toURI());
+
+		// load image (the intrinsic state)
+		this.image = ImageIO.read(file);
+	}
+
+	void describe(PrintStream ps, Img es) {
+		ps.println(String.format("%s: %d x %d",
+				es.caption,
+				image.getHeight(null),
+				image.getWidth(null)
+		));
+	}
+}
+```
+
+These flyweights are managed by a factory; that is, the user never allocates a flyweight manually, but retrieves instances from the factory, which facilitates the sharing.
+
+```java
+class FlyweightFactory {
+	private Map<String, Flyweight> flyweights = new HashMap<>();
+
+	Flyweight getFlyweight(String path) throws URISyntaxException, IOException {
+		if (flyweights.containsKey(path))
+			return flyweights.get(path);
+
+		// allocate new flyweight
+		Flyweight fw = new Flyweight(path);
+		flyweights.put(path, fw);
+
+		return fw;
+	}
+}
+```
+
+The extrinsic share becomes the new `Img` class; it will have individual `alt` captions, but maintain references to the shared flyweight.
+
+```java
+class Img {
+	final String caption;
+	final Flyweight flyweight;  // reference!
+
+	Img(String caption, Flyweight flyweight) {
+		this.caption = caption;
+		this.flyweight = flyweight;
+	}
+
+	void describe(PrintStream ps) {
+		// inject extrinsic state to flyweight
+		flyweight.describe(ps, this);
+	}
+}
+```
+
+Back to the original example, our text browser.
+Instead of allocating the `Img` tags
+
+```java
+List<Img> items = new LinkedList<>();
+FlyweightFactory factory = new FlyweightFactory();
+
+// allocate items
+items.add(new Img("Exhibit 1", factory.getFlyweight("picasso.png")));
+items.add(new Img("Also Picasso", factory.getFlyweight("picasso.png")));
+items.add(new Img("Picasso, too", factory.getFlyweight("picasso.png")));
+items.add(new Img("Oh look, Picasso", factory.getFlyweight("picasso.png")));
+
+// print them out
+for (Img e : items)
+	e.describe(System.out);
+```
+
+This way, the `picasso.png` is only loaded once and then shared among all the other `Img` instances.
+As a result: the application is faster (single loading) and needs less memory (all static data just once).
+You can easily try it by loading a few hundreds of images: you will see how much faster (and less memory) the flyweight uses.
+
+
+## Structure
 
 ![dp-flyweight](/assets/dp-flyweight.svg)
 
@@ -219,5 +379,11 @@ Consider
 - Browser rendering the same media multiple times; intrinsic state: actual media (image, video, audio), extrinsic state: location on screen
 - Android `RecyclerView`; intrinsic state: inflated layout of `RecycleView`, extrinsic state: actual contents to be displayed (often nested with further Flyweight)
 - Video games rendering/tiling engines; intrinsic state: actual texture or tile, extrinsic state: 3D location and orientation
+
+---
+
+# Design Patterns Summary
+
+
 
 <p style="text-align: right">&#8718;</p>
