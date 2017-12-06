@@ -68,7 +68,7 @@ Credits: written exam (90') at the end of the semester.
 
 	We look at more every-day-patterns: singleton, factory, strategy and command.
 
-- **Design patterns, pt. 3 (Dec 6, [lecture notes](/09ln-proxy-adapter-flyweight/), [assignments](https://github.com/hsro-inf-prg3/09-adapter-flyweight))**
+- **Design patterns, pt. 3 (Dec 6, [slides](/09s-proxy-adapter-flyweight/), [lecture notes](/09ln-proxy-adapter-flyweight/), [assignments](https://github.com/hsro-inf-prg3/09-adapter-flyweight))**
 	
 	We round up a few more useful patterns: proxy and adapter to make other peoples' modules fit your needs, and flyweight to save on precious memory in (mostly) graphical apps.
 

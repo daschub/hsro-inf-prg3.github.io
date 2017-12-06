@@ -192,7 +192,7 @@ _Object_ adapter:
 ![dp-adapter-object](/assets/dp-adapter_001.svg)
 
 
-> Note: The Adapter is not to be confused with the [Facade](https://en.wikipedia.org/wiki/Facade_pattern), in which a whole subsystem is abstracted into a single class.
+> Note: The Adapter is not to be confused with the [Facade](https://en.wikipedia.org/wiki/Facade_pattern), in which a whole subsystem is abstracted into a new class, typically implementing a **new** interface.
 > An example for a Facade would be to couple the classes `Engine`, `Transmission` and `Starter` into the class `Auto`, which adds the logic on how to start, drive and stop.
 
 
@@ -200,6 +200,7 @@ _Object_ adapter:
 
 - `ArrayAdapter` in Android to render data arrays in views
 - Wrappers for third-party libraries
+- _Object_ adapter often best choice if implementation of Adaptee unknown
 
 ---
 
@@ -371,7 +372,10 @@ You can easily try it by loading a few hundreds of images: you will see how much
 
 ![dp-flyweight](/assets/dp-flyweight.svg)
 
-> Note: In practice, the `operation()` often hands a data handle (reference) to the caller, instead of actually performing an operation with the provided extrinsic state.
+Notes: 
+- The term _flyweight_ is misleading: it is _light_ in a sense of _less and static parts_, but often contains the "memory heavy" objects.
+- In a variant, there is no `operation()` but just a shared reference to the flyweights, which act as a pool of "heavy" objects.
+
 
 ## Examples
 
@@ -384,6 +388,27 @@ You can easily try it by loading a few hundreds of images: you will see how much
 
 # Design Patterns Summary
 
+There is a total of 23 design patterns described by Gamma _et al._
+Throughout this course, we already discussed quite a few of those:
+
+## Creational Patterns
+- [Factory and factory method](/08ln-singleton-factory-strategy-command/): Provide an interface for creating families of related or dependent objects without specifying their concrete class.
+- [Singleton](/08ln-singleton-factory-strategy-command/): Guarantee _unique_ instance of class, and provide global access.
+
+## Structural Patterns
+- [Adapter](#adapter): Make a piece of software fit your needs.
+- [Composite](/07ln-iterator-composite-observer/): Recursive data structure with containers and leaves, to represent part-whole hierarchies; composite lets client treeat objects and compositions uniformly.
+- [Decorator](/03ln-inheritance): Add functionality to objects without changing their basic interface.
+- [Flyweight](#flyweight): Share common data to support large numbers of similar objects.
+- [Proxy](#proxy): Provide a surrogate to allow caching or access control; indistinguishable to the client (same interface).
+
+## Behavioral Patterns
+- [Command](/08ln-singleton-factory-strategy-command/): create objects that can do or undo certain actions; use it to realize undo, macros and transactions.
+- [Iterator](/07ln-iterator-composite-observer/): Provide access to elements of aggregate without exposing the underlying structure/representation.
+- [Observer](/07ln-iterator-composite-observer/): Subscribe to an object to get notified on state change.
+- [State](https://github.com/hsro-inf-prg3/03-inheritance): Allow an object to alter its behavior when its internal state changes; objects will appear to change their class.
+- [Strategy](/08ln-singleton-factory-strategy-command/): Define family of algorithms and make them interchangeable.
+- [Template method](/03ln-inheritance/): Define skeleton of algorithm/functionality in an operation, deferring certain steps/parts to subclasses.
 
 
 <p style="text-align: right">&#8718;</p>
