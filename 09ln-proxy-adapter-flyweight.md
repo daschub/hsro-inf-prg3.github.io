@@ -233,7 +233,8 @@ class Img {
 		File file = new File(getClass().getClassLoader()
 				.getResource(path).toURI());
 
-		// load image
+		// load image; use helper function from JavaX package
+		// https://docs.oracle.com/javase/8/docs/api/javax/imageio/ImageIO.html
 		this.image = ImageIO.read(file);
 	}
 
