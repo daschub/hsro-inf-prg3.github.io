@@ -44,7 +44,7 @@ Or expressed as a sequence diagram, with methods as columns:
 This is also the behavior you see when using the debugger and going through your program step-by-step, using the _step-into_ action.
 
 A _process_ has a self-contained (and isolated) environment.
-A Proccess has a complete and private set of run-time resources; in particular, each process has its own memory space.
+A Process has a complete and private set of run-time resources; in particular, each process has its own memory space.
 
 
 # Threads
@@ -133,11 +133,11 @@ Threads are sometimes called _lightweight processes_; they exist inside processe
 This allows communication but at the same time introduces risks.
 
 From your operating systems class, you may already know that there are _user_ and _system_ (or _kernel_) level threads.
-In Java, threads are typically _user level_, since you work with the `java.lang.Thread` API (and the JVM) rather than directly with the operating system.
+In Java, threads are technically _user level_, since you work with the `java.lang.Thread` API (and the JVM) rather than directly with the operating system.
 For the JVM, however, threads are typically implemented as _kernel level_ threads, to get the best performance; the VM translates the threading instructions into operations native to your operating system.
 
 
-## Examples
+### Examples
 
 Multi-threaded programming is ubiquitous in modern applications:
 - browser: loading multiple resources at a time using concurrent connections
@@ -264,16 +264,37 @@ Total beans: 362537
 ```
 
 So what happened?
-All bean counters share the same `Counter` instance; however, they since each thread executes its own methods, the following situation can arise:
+All bean counters share the same `Counter` instance; however, they since each thread executes its own methods, we need to look at the `increment()` method carefully:
 
-| Time | Thread 1 | Thread 2 | Thread 3... | _result_ |
-| ---- | -------- | -------- | --- | -------- |
-| 1 | v1 = c.getCount() |                   | | v1 = 0 |
-| 2 |                   | v2 = c.getCount() | | v2 = 0 |
-| 3 | v += 1            |                   | | v1 = 1 |
-| 4 |                   | v2 += 1           | | v2 = 1 |
-| 5 | c.setCount(v1)    |                   | | c = 1  |
-| 6 |                   | c.setCount(v2)    | | **c = 1 !** |
+```java
+void increment() {
+	c = c + 1;
+}
+```
+
+In fact, to execute this assignment, the JVM needs to first load the value of `c`, then add `1`, and then assign it back to `c`.
+
+```java
+void increment() {
+	int tmp = c;
+	++tmp;
+	c = tmp;
+}
+```
+
+That means, two threads can be at different steps of this method, but share the memory.
+Note that the _stack_ variables are per-thread, whereas the _heap_ variables (the counter instance) are shared (see [Java VM Specifications](https://docs.oracle.com/javase/specs/jvms/se9/html/jvms-2.html#jvms-2.5.2)).
+
+
+|   | Thread 1 | Thread 2 | _result_ |
+| - | -------- | -------- | -------- |
+| 1 | tmp1 = c |          | tmp1 = 0 |
+| 2 |          | tmp2 = c | tmp2 = 0 |
+| 3 | ++tmp1   |          | tmp1 = 1 |
+| 4 |          | ++tmp2   | tmp2 = 1 |
+| 5 | c = tmp1 |          | c = 1  |
+| 6 |          | c = tmp2 | **c = 1 !** |
+{: .table }
 
 Since the _memory_ is shared, both threads retrieve the same value `c` of the counter (at the beginning: 0).
 Then they each increment that value by one, before they individually call `setCount`.
@@ -294,7 +315,7 @@ void increment() {
 }
 ```
 
-Each thread trying to enter the _critical section_ first has to aqcuire the lock (here: `this`), or wait for it to become available.
+Each thread trying to enter the _critical section_ first has to acquire the lock (here: `this`), or wait for it to become available.
 The thread then executes all statements inside the synchronized section, before it releases the lock again.
 
 Note that for the block instruction, the argument to `synchronized` defines the _lock_ object; this could be any object, and is implicitly `this` when using `synchronized` as a method modifier.
