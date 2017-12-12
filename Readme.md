@@ -72,7 +72,7 @@ Credits: written exam (90') at the end of the semester.
 	
 	We round up a few more useful patterns: proxy and adapter to make other peoples' modules fit your needs, and flyweight to save on precious memory in (mostly) graphical apps.
 
-- **Parallel processing, pt. 1 (Dec 13)**
+- **Parallel processing, pt. 1 (Dec 13, [slides](/10s-threads/), [lecture notes](/10ln-threads/), [assignments](https://github.com/hsro-inf-prg3/10-threads))**
 
 	Because sometimes, you need to work more than one thing at a time!
 	We'll talk about threads and concurrency when it comes to resources.
