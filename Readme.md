@@ -77,7 +77,7 @@ Credits: written exam (90') at the end of the semester.
 	Because sometimes, you need to work more than one thing at a time!
 	We'll talk about threads and concurrency when it comes to resources.
 
-- **Parallel proccessing, pt. 2 (Dec 20)**
+- **Parallel processing, pt. 2 (Dec 20, [slides](/11s-futures/), [lecture notes](/11ln-futures/), assignments [alternate1](https://github.com/hsro-inf-prg3/11-futures-cli) or [alternate2](https://github.com/hsro-inf-prg3/11-futures-android))**
 	
 	`Thread`s are clunky--- learn about a better `Future`, and what _promise chaining_ can do for you.
 
